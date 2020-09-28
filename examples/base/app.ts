@@ -1,6 +1,6 @@
 import axios from '../../src/index'
 
-axios({
+/*axios({
   method: 'get',
   url: '/base/get',
   params: {
@@ -59,9 +59,9 @@ axios({
   params: {
     bar: 'baz'
   }
-})
+})*/
 
-/*axios({
+axios({
   method: 'post',
   url: '/base/post',
   data: {
@@ -74,7 +74,8 @@ axios({
   method: 'post',
   url: '/base/post',
   headers: {
-    'content-type': 'application/json;charset=utf-8'
+    'content-type': 'application/json;charset=utf-8',
+    'token': 123
   },
   data: {
     a: 1,
@@ -89,7 +90,6 @@ axios({
   url: '/base/buffer',
   data: arr
 })
-
 
 const paramsString = 'q=URLUtils.searchParams&topic=api'
 const searchParams = new URLSearchParams(paramsString)
@@ -121,4 +121,4 @@ axios({
   }
 }).then((res) => {
   console.log(res)
-})*/
+})
