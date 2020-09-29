@@ -19,7 +19,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         return
       }
       // 网络或超时错误
-      if (request.status !== 0) {
+      if (request.status === 0) {
         // TODO:
         return
       }

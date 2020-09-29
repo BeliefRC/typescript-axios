@@ -13,6 +13,7 @@ module.exports = {
 
     return entries
   }, {}),
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, '__build__'),
     filename: '[name].js',
@@ -48,8 +49,5 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js']
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
+  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()]
 }
