@@ -1,35 +1,40 @@
 import { AxiosRequestConfig } from '../types'
-import { isPlainObject, deepMerge } from '../helpers/util'
-const mergeMap = Object.create(null)
-function defaultMerge(val1: any, val2: any): any {
-  return typeof val2 !== undefined ? val2 : val1
+import { deepMerge, isPlainObject } from '../helpers/util'
+
+const strats = Object.create(null)
+
+function defaultStrat(val1: any, val2: any): any {
+  return typeof val2 !== 'undefined' ? val2 : val1
 }
-function fromVal2Merge(val1: any, val2: any): any {
-  if (typeof val2 !== undefined) {
+
+function fromVal2Strat(val1: any, val2: any): any {
+  if (typeof val2 !== 'undefined') {
     return val2
   }
 }
 
-function mergeDeepProperties(val1: any, val2: any): any {
+function deepMergeStrat(val1: any, val2: any): any {
   if (isPlainObject(val2)) {
     return deepMerge(val1, val2)
   } else if (typeof val2 !== 'undefined') {
     return val2
   } else if (isPlainObject(val1)) {
     return deepMerge(val1)
-  } else if (typeof val1 !== 'undefined') {
+  } else {
     return val1
   }
 }
-const mergeKeysFromVal2 = ['url', 'data', 'params']
 
-mergeKeysFromVal2.forEach(key => {
-  mergeMap[key] = fromVal2Merge
+const stratKeysFromVal2 = ['url', 'params', 'data']
+
+stratKeysFromVal2.forEach(key => {
+  strats[key] = fromVal2Strat
 })
 
-const mergeDeepPropertiesKeys = ['headers']
-mergeDeepPropertiesKeys.forEach(key => {
-  mergeMap[key] = mergeDeepProperties
+const stratKeysDeepMerge = ['headers', 'auth']
+
+stratKeysDeepMerge.forEach(key => {
+  strats[key] = deepMergeStrat
 })
 
 export default function mergeConfig(
@@ -39,18 +44,23 @@ export default function mergeConfig(
   if (!config2) {
     config2 = {}
   }
+
   const config = Object.create(null)
+
   for (let key in config2) {
     mergeField(key)
   }
+
   for (let key in config1) {
     if (!config2[key]) {
       mergeField(key)
     }
   }
+
   function mergeField(key: string): void {
-    const merge = mergeMap[key] || defaultMerge
-    config[key] = merge(config1[key], config2![key])
+    const strat = strats[key] || defaultStrat
+    config[key] = strat(config1[key], config2![key])
   }
+
   return config
 }
