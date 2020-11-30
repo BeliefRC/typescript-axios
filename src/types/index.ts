@@ -72,11 +72,11 @@ export interface IAxios {
 
   options<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  post<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  put<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
-  patch<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 
   getUri(config?: AxiosRequestConfig): string
 }

@@ -22,8 +22,8 @@ export default class InterceptorManager<T> implements AxiosInterceptorManager<T>
     }
   }
   forEach(fn: (interceptor: Interceptor<T>) => void): void {
-    this.interceptors.forEach(interceptor=>{
-      if (interceptor!==null){
+    this.interceptors.forEach(interceptor => {
+      if (interceptor !== null) {
         fn(interceptor)
       }
     })

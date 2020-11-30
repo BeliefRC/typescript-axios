@@ -38,27 +38,6 @@ export function deepMerge(...objs: any[]): any {
   return result
 }
 
-export function flattenHeaders(headers: any, method: Method): any {
-  if (!headers) {
-    return headers
-  }
-  headers = deepMerge(headers.common, headers[method], headers)
-  const methodToDelete: Array<Method | 'common'> = [
-    'delete',
-    'get',
-    'head',
-    'options',
-    'post',
-    'put',
-    'patch',
-    'common'
-  ]
-  methodToDelete.forEach(method => {
-    Reflect.deleteProperty(headers, method)
-  })
-  return headers
-}
-
 export function isFormData(val: any): val is FormData {
   return typeof val !== 'undefined' && val instanceof FormData
 }
